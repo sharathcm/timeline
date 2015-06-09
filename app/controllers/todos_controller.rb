@@ -15,6 +15,9 @@ class TodosController < ApplicationController
   # GET /todos/new
   def new
     @todo = Todo.new
+    respond_to do |format|
+        format.js
+      end
   end
 
   # GET /todos/1/edit

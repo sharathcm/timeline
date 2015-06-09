@@ -28,7 +28,13 @@ $(document).ready(function() {
 
   $('[data-toggle="tooltip"]').tooltip()
 
-  $('[data-toggle="popover"]').popover()
-  
+  $('[data-toggle="popover"]').popover({
+  	html: true,
+  	content: function () {
+        return $(this).parent().find('.content').html();
+    }
+
+  })
+
 });
 

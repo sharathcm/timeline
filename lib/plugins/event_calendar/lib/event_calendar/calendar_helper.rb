@@ -168,9 +168,8 @@ module EventCalendar
         first_day_of_week.upto(first_day_of_week+6) do |day|
           today_class = (day == Date.today) ? "ec-today-bg" : ""
           other_month_class = (day < first) || (day > last) ? 'ec-other-month-bg' : ''
-          cal << %(<td class="ec-day-bg #{today_class} #{other_month_class}">)
-          # to get dynamic id use this id="ec-task-#{day.day}
-          cal << %(<div tabindex="0" class="ec-tooltip-body"  data-toggle="popover" data-trigger="focus" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"> popover  </div>)
+          cal << %(<td class="ec-day-bg #{today_class} #{other_month_class}" data-toggle="modal" data-target="#todo-notes">)
+          cal << %(<a href="#" data-toggle="tooltip" data-placement="left" title="Tooltip on left">8</a>)
           cal << %(</td>)
         end
         cal << %(</tr></tbody></table>)

@@ -21,7 +21,28 @@
 </td>
 
 
-        <td><%= todo.notes %></td>
+<td><!-- Button trigger modal -->
+  <button class="btn btn-link" data-toggle="modal" data-target="#todo-<%= todo.id %>-notes">
+    View notes
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="todo-<%= todo.id %>-notes" tabindex="-1" role="dialog" aria-labelledby="todo-<%= todo.id %>-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="todo-<%= todo.id %>-label">Notes</h4>
+        </div>
+        <div class="modal-body">
+          <%= todo.notes %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</td>
         <td><%= link_to 'Show', todo %></td>
         <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
         <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
