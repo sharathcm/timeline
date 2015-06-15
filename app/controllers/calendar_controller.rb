@@ -6,7 +6,7 @@ class CalendarController < ApplicationController
 
     @shown_month = Date.civil(@year, @month)
 
-    @event_strips = Event.all
+    @event_strips = Task.all
   end
   
 end
