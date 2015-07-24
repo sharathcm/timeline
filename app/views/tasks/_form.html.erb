@@ -1,0 +1,21 @@
+
+<%= p params %>
+<%= form_for(@task) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label "project id" %><br />
+    <%= f.number_field :project_id %>
+  </div>
+  <div class="field">
+    <%= f.label :hours %><br />
+    <%= f.number_field :hours %>
+  </div>
+   <%= f.hidden_field :task_date, :name =>"task[task_date]"%>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

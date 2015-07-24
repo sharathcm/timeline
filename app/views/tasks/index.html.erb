@@ -1,0 +1,29 @@
+<!-- Probably move the stylesheet to you layout. Also make sure you include the javascript. -->
+
+
+<h1 >Calendar</h1>
+
+<%= raw(event_calendar) %>
+
+<div id="event_desc_dialog" class="dialog" style="display:none;"></div>
+<div id="create_event_dialog" class="dialog" style ="display:none;">
+  <%#= render 'form' %>
+</div>
+
+<div class="modal fade" id="tasks-notes" tabindex="-1" role="dialog" aria-labelledby="todo-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="todo-label">Notes</h4>
+        </div>
+        <%# a = hidden_field_tag :task_date %>
+        <div class="modal-body">
+          <%= render 'form', size: 50 %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
