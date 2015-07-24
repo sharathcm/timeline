@@ -4,7 +4,55 @@
 		FullcalendarEngine = {}; 
 	}
 
- });
+
+	  $('[data-toggle="tooltip"]').tooltip();
+
+	  $('#tasks-notes').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) 
+	  var day = button.data('date')
+
+	  $("input[name='task[task_date]']").val(day);
+	  $("input[name='task_date']").val(day);
+
+	  
+
+		$("#new_task").submit(function(){
+		      $.ajax({
+		            type: "POST",
+		            url: "/tasks", 
+		            data: $('form#new_task').serialize(),
+  		        });
+		  });
+
+	  });
+
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  FullcalendarEngine = {
   Form: {
