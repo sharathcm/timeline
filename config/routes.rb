@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
-  match '/calendar(/:year(/:month))' => 'calendar#index', via: [:get, :post], :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+  #match '/calendar(/:year(/:month))' => 'calendar#index', via: [:get, :post], :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+   match '/task(/:year(/:month))' => 'tasks#index', via: [:get, :post], :as => :tasks, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   resources :todos
+  
+
+  resources :tasks do
+    collection do
+      get 'copy_day'
+      get 'copy_week'
+    end
+  end  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

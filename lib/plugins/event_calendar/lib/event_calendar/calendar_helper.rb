@@ -167,8 +167,8 @@ module EventCalendar
         first_day_of_week.upto(first_day_of_week+6) do |day|
           today_class = (day == Date.today) ? "ec-today-bg" : ""
           other_month_class = (day < first) || (day > last) ? 'ec-other-month-bg' : ''
-          cal << %(<td class="ec-day-bg #{today_class} #{other_month_class}" data-toggle="modal" data-target="#todo-notes">)
-          # cal << %(<a href="#" data-toggle="tooltip" data-placement="left" title="Tooltip on left"></a>)
+          cal << %(<td class="ec-day-bg #{today_class} #{other_month_class}" data-toggle="modal" data-target="#tasks-notes" id="date-#{day.day}"  data-date="#{day}">)
+
           cal << %(</td>)
         end
         cal << %(</tr></tbody></table>)
@@ -178,7 +178,7 @@ module EventCalendar
         cal << %(<tbody>)
 
         # day numbers row
-        cal << %(<tr class="game-of-throne">)
+        cal << %(<tr>)
         first_day_of_week.upto(last_day_of_week) do |day|
           cal << %(<td class="ec-day-header )
           cal << %(ec-today-header ) if options[:show_today] and (day == Date.today)
@@ -193,12 +193,23 @@ module EventCalendar
           cal << %(</td>)
         end
         cal << %(</tr>)
+        # cal << %(<tr>) 
+        #         cal << %(<td style="padding-left:137px;">#{link_to image_tag("down.png", height: '18', width: '18'), {:action => 'copy_week', :controller => 'tasks'}}</td>)
+        # cal << %(</tr>)
 
+          #display worked task hours in the table 
         cal << %(<tr>) 
           first_day_of_week.upto(last_day_of_week) do |day|
                 cal << %(<td class="ec-event-cell">#{task_worked_hour(day)}</td>)
           end
         cal << %(</tr>)
+
+        cal << %(<tr>) 
+          first_day_of_week.upto(last_day_of_week) do |day|
+                cal << %(<td style="padding-left:137px;">#{link_to image_tag("forward.png", height: '18', width: '18'), {:action => 'copy_day', :controller => 'tasks',:date => day}}</td>)
+          end
+        cal << %(</tr>)
+       
 
         # event rows for this day
         # for each event strip, create a new table row
@@ -274,7 +285,8 @@ module EventCalendar
       beg = beginning_of_week(date, start)
       beg + 6
     end
-
+    
+    # this will return worked hour based on date
     def task_worked_hour(date)
       task_name = Task.where("task_date = ?",date).first
 
