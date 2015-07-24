@@ -7,6 +7,23 @@ class CalendarController < ApplicationController
     @shown_month = Date.civil(@year, @month)
 
     @event_strips = Task.all
+    @task = Task.new
+  end
+
+  def new
+    @task = Task.new
+    respond_to do |format|
+        format.js
+      end
+  end
+
+  def create
+    @task = Task.new(todo_params)
+    
+    if @task.save
+      render :index
+    end
+
   end
   
 end
