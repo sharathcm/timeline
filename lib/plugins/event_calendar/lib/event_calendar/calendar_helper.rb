@@ -156,7 +156,7 @@ module EventCalendar
       last_day_of_cal = end_of_week(last, options[:first_day_of_week])
       row_num = 0
       top = 0
-
+      
       # go through a week at a time, until we reach the end of the month
       while(last_day_of_week <= last_day_of_cal)
         cal << %(<div class="ec-row " style="top: #{top}px; height: #{row_heights}px;">)
@@ -167,7 +167,7 @@ module EventCalendar
         first_day_of_week.upto(first_day_of_week+6) do |day|
           today_class = (day == Date.today) ? "ec-today-bg" : ""
           other_month_class = (day < first) || (day > last) ? 'ec-other-month-bg' : ''
-          cal << %(<td class="ec-day-bg #{today_class} #{other_month_class}" data-toggle="modal" data-target="#tasks-notes" id="date-#{day.day}"  data-date="#{day}">)
+          cal << %(<td class="ec-day-bg #{today_class} #{other_month_class}"   data-target="#tasks-notes" id="date-#{day.day}"  data-date="#{day}">)
 
           cal << %(</td>)
         end
@@ -193,9 +193,6 @@ module EventCalendar
           cal << %(</td>)
         end
         cal << %(</tr>)
-        # cal << %(<tr>) 
-        #         cal << %(<td style="padding-left:137px;">#{link_to image_tag("down.png", height: '18', width: '18'), {:action => 'copy_week', :controller => 'tasks'}}</td>)
-        # cal << %(</tr>)
 
           #display worked task hours in the table 
         cal << %(<tr>) 
@@ -209,6 +206,13 @@ module EventCalendar
                 cal << %(<td style="padding-left:137px;">#{link_to image_tag("forward.png", height: '18', width: '18'), {:action => 'copy_day', :controller => 'tasks',:date => day}}</td>)
           end
         cal << %(</tr>)
+        cal << %(<tr>) 
+            first_day_of_week.upto(last_day_of_week) do |day|
+                if day == day.beginning_of_week
+                  cal << %(<td style="padding-left:137px;">#{link_to image_tag("down.png", height: '18', width: '18'), {:action => 'copy_week', :controller => 'tasks',:date => day}}</td>)
+                end
+            end
+        cal << %(</tr>)
        
 
         # event rows for this day
@@ -216,7 +220,7 @@ module EventCalendar
         # options[:event_strips].each do |strip|
         cal << %(</tbody></table>)
         cal << %(</div>)
-
+        
         # increment the calendar row we are on, and the week
         row_num += 1
         first_day_of_week += 7

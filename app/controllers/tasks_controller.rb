@@ -51,14 +51,24 @@ class TasksController < ApplicationController
   def copy_day
     @task = Task.where("task_date = ?",params[:date]).first
     if @task.present?
-      @copy_task = Task.new(name: @task.name, project_id: @task.project_id, hours: @task.hours, task_date: @task.task_date+1)
+      @copy_task = Task.new(name: @task.name, project_id: @task.project_id, hours: @task.hours, task_date: @task.task_date+1.day)
       @copy_task.save
     end  
     redirect_to tasks_url
   end 
 
   def copy_week
-    
+    tasks ={}
+    days = Array(params[:date].to_date..params[:date].to_date+4.days)
+    days.each do | day|
+      values = Task.where("task_date = ?",day).collect { |t| [t.name,t.project_id,t.hours] }
+      tasks[day.to_date+7.days] = values
+    end
+    tasks.each do |k,v|
+      Task.create(name: v[0][0], project_id: v[0][1], hours: v[0][2], task_date: k) if v[0].present?
+    end
+  
+    redirect_to tasks_url
   end  
 
   # POST /tasks
